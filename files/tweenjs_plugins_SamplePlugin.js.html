@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/css/yui-cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <script src="../assets/js/yui-source.js"></script>
+	<title>TweenJS v1.0.0 API Documentation : tweenjs/plugins/SamplePlugin.js</title>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://www.createjs.com/tweenjs"><img src="../assets/docs-icon-TweenJS.png" title="TweenJS"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 1.0.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AbstractTween.html">AbstractTween</a></li>
+            
+                <li><a href="../classes/ColorPlugin.html">ColorPlugin</a></li>
+            
+                <li><a href="../classes/CSSPlugin.html">CSSPlugin</a></li>
+            
+                <li><a href="../classes/Ease.html">Ease</a></li>
+            
+                <li><a href="../classes/Event.html">Event</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/MotionGuidePlugin.html">MotionGuidePlugin</a></li>
+            
+                <li><a href="../classes/RelativePlugin.html">RelativePlugin</a></li>
+            
+                <li><a href="../classes/RotationPlugin.html">RotationPlugin</a></li>
+            
+                <li><a href="../classes/SamplePlugin.html">SamplePlugin</a></li>
+            
+                <li><a href="../classes/Ticker.html">Ticker</a></li>
+            
+                <li><a href="../classes/Timeline.html">Timeline</a></li>
+            
+                <li><a href="../classes/Tween.html">Tween</a></li>
+            
+                <li><a href="../classes/TweenJS.html">TweenJS</a></li>
+            
+                <li><a href="../classes/Utility Methods.html">Utility Methods</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/CreateJS.html">CreateJS</a></li>
+            
+                <li><a href="../modules/EaselJS.html">EaselJS</a></li>
+            
+                <li><a href="../modules/TweenJS.html">TweenJS</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content source-content">
+                        <script>
+	var name = tweenjs/plugins/SamplePlugin.js      
+</script>
+<h1 class="file-heading">File:SamplePlugin.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+* SamplePlugin
+* Visit http://createjs.com/ for documentation, updates and examples.
+*
+* Copyright (c) 2010 gskinner.com, inc.
+*
+* Permission is hereby granted, free of charge, to any person
+* obtaining a copy of this software and associated documentation
+* files (the &quot;Software&quot;), to deal in the Software without
+* restriction, including without limitation the rights to use,
+* copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following
+* conditions:
+*
+* The above copyright notice and this permission notice shall be
+* included in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+* OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/**
+ * @module TweenJS
+ */
+
+// namespace:
+this.createjs = this.createjs||{};
+
+(function() {
+	&quot;use strict&quot;;
+
+	/**
+	 * A sample TweenJS plugin. This plugin is purely for demonstration, and contains documentation and helpful tips on
+	 * building plugins.
+	 * 
+	 * It sets the y position of the target based on a sinusoidal function of its x position.
+	 * 
+	 * NOTE: The code for this class is heavily commented. Please look at it if you&#x27;d like to write a plugin.
+	 *
+	 * A TweenJS plugin is simply an object that exposes two properties (id, priority), and three methods (init, step, and change).
+	 * Generally a plugin will also expose an &lt;code&gt;install&lt;/code&gt; method as well, though this is not strictly necessary.
+	 * @class SamplePlugin
+	 * @constructor
+	 **/
+	function SamplePlugin() {
+		throw(&quot;SamplePlugin cannot be instantiated.&quot;);
+	};
+	var s = SamplePlugin;
+
+// static interface:
+	/**
+	 * Used by TweenJS to determine when to call this plugin relative to others.
+	 * Plugins with higher priority read first, and write last.
+	 * 
+	 * For example, if plugin A has &#x60;priority=0&#x60;, and plugin B has &#x60;priority=9&#x60; then B&#x27;s &#x60;init&#x60; and &#x60;step&#x60; methods would
+	 *  be called before A&#x27;s, but B&#x27;s &#x60;change&#x60; method would be called *after* A&#x27;s.
+	 * @property priority
+	 * @type {Number}
+	 * @default 0
+	 * @static
+	 **/
+	s.priority = 0;
+	
+	/**
+	 * READ-ONLY. A unique identifying string for this plugin. Used by TweenJS to ensure duplicate plugins are not installed on a tween.
+	 * @property ID
+	 * @type {String}
+	 * @static
+	 * @readonly
+	 **/
+	s.ID = &quot;Sample&quot;;
+	
+	// if you&#x27;re going to be installing instances of this plugin, you should ensure they have the same id as the class:
+	// s.prototype.ID = s.ID;
+
+	/**
+	 * Installs this plugin for use with TweenJS. Call this once after TweenJS is loaded to enable this plugin.
+	 * @method install
+	 * @static
+	 **/
+	s.install = function() {
+		// TODO: should we just do installPlugin vs Plugin.install? That&#x27;s what our other libs do.
+		createjs.Tween._installPlugin(SamplePlugin);
+	};
+
+	/**
+	 * Called by TweenJS when a new property initializes on a tween. Generally, the call
+	 * to &#x60;Plugin.init&#x60; will be immediately followed by a call to &#x60;Plugin.step&#x60;.
+	 * 
+	 * For example:
+	 * 
+	 * 	foo.x = 0;
+	 * 	foo.y = 100;
+	 * 	Tween.get(foo)
+	 * 		.to({x:10}) // init called with prop = &quot;x&quot;, value = 0
+	 * 		.to({x:20}) // init is NOT called, since x was already inited
+	 * 		.to({y:200}) // init called with prop = &quot;y&quot;, value = 100
+	 * 
+	 * @method init
+	 * @param {Tween} tween The related tween instance.
+	 * @param {String} prop The name of the property that is being initialized.
+	 * @param {any} value If another plugin has modified the starting value, it will be passed in. Otherwise value will be undefined.
+	 * @return {any} The modified starting tween value for the property. In most cases, you would simply wouldn&#x27;t return anything, 
+	 * but some plugins may need to modify the starting value. You can also return &#x60;Tween.IGNORE&#x60; to prevent this prop
+	 * from being added to the tween at all.
+	 * @static
+	 **/
+	s.init = function(tween, prop, value) {
+		console.log(&quot;init: &quot;, prop, value);
+		
+		// its good practice to let users opt out (or in some cases, maybe in) via pluginData:
+		var data = tween.pluginData;
+		if (data.Sample_disabled) { return; }
+		
+		// this tells the tween to not manage the &quot;y&quot; property:
+		if (prop === &quot;y&quot;) { return createjs.Tween.IGNORE; }
+		
+		// filter which properties you want to work on by using &quot;prop&quot;:
+		// in this case, we only want to operate on the x property:
+		if (prop !== &quot;x&quot;) { return; } // make sure to pass through value.
+		
+		// we know we want to operate on this tween, so we add the plugin to it:
+		// most plugins can just be a single shared plugin class:
+		tween._addPlugin(SamplePlugin);
+		
+		// you can also use pluginData to attach arbitrary data to the tween for later use:
+		// we want to adjust y relative to it&#x27;s initial value, so let&#x27;s save that off in pluginData:
+		tween.pluginData.Sample_y = tween.target.y;
+		
+		
+		// NOTE: none of the code below actually does anything in this scenario, it&#x27;s just to illustrate concepts:
+		
+		// but you can also add an instance, if you wanted to store data on the plugin:
+		// if you do this, ensure that there is an &#x60;id&#x60; property on the instance that matches the one on the class.
+		// tween.addPlugin(new SamplePlugin());
+		
+		// note that it&#x27;s also possible to create a plugin that doesn&#x27;t add itself, but hooks into the &quot;change&quot; event instead.
+		
+		// you can grab the current value on the target using:
+		var targetValue = tween.target[prop];
+		
+		// this gets the current starting value for the property, using value from previous plugins if specified, or the target value if not:
+		// this is a bit of a pain, but it prevents accessing target values that aren&#x27;t needed, which can be very expensive (ex. width on a HTMLElement, when we actually want to grab it from style)
+		var defaultValue = (value === undefined) ? targetValue : value;
+		
+		// this passes out a new initial value for the x property:
+		// if (prop === &quot;x&quot;) { return Math.round(defaultValue); }
+	};
+
+	/**
+	 * Called when a new step is added to a tween (ie. a new &quot;to&quot; action is added to a tween).
+	 * 
+	 * For example:
+	 * 	Tween.get(foo)
+	 * 		.to({x:10}) // step called
+	 * 		.wait(100) // step is NOT called
+	 * 		.to({x:20, y:200}) // step called
+	 * 
+	 * @method step
+	 * @param {Tween} tween The related tween instance.
+	 * @param {TweenStep} step The related tween step. This class is currently undocumented. See the bottom of Tween.js for info.
+	 * @param {Object} props The props object that was passed to &#x60;to()&#x60;.
+	 * @static
+	 **/
+	s.step = function(tween, step, props) {
+		// the function of this plugin doesn&#x27;t require us to react or modify new steps, so we&#x27;ll just log it out for reference:
+		console.log(&quot;step: &quot;, step, props);
+		
+		
+		// NOTE: none of the code below actually does anything in this scenario, it&#x27;s just to illustrate concepts:
+		
+		// props is the collection of properties that were changed in this step.
+		// you can use this to decide whether to do anything:
+		if (props.x === undefined) { return; } // no change to x
+		
+		// because other plugins may modify the end value for this step, you should access it
+		// via the step object, not the props object:
+		var endValue = step.props.x;
+		
+		// you can grab the start value from the previous step:
+		var startValue = step.prev.props.x;
+		
+		// you can modify this step&#x27;s end value:
+		// this approach should only be used to modify a property value we are CERTAIN is already being tweened.
+		// we know x is being tweened, because we checked for its existence in &#x60;props&#x60; above.
+		// step.props.x = Math.max(0, Math.min(100, step.props.x));
+		
+		// or specify other properties that you&#x27;d like to include in the tween:
+		// this can be used to set the step&#x27;s end value for a property we can&#x27;t be certain it is already being tweened.
+		// tween._injectProp(&quot;y&quot;, 200);
+		
+		// if this was a plugin instance, you could store step specific data using step.index:
+		// this.steps[step.index] = {arbitraryData:foo};
+	};
+
+	/**
+	 * Called before a property is updated by the tween.
+	 * @method change
+	 * @param {Tween} tween The related tween instance.
+	 * @param {TweenStep} step The related tween step. This class is currently undocumented. See the bottom of Tween.js for info.
+	 * @param {String} prop The name of the property being tweened.
+	 * @param {any} value The current tweened value of the property, as calculated by TweenJS. Previous plugins may have modified this value.
+	 * @param {Number} ratio A value indicating the eased progress through the current step. This number is generally between 0 and 1,
+	 * though some eases will generate values outside this range.
+	 * @param {Boolean} end Indicates that the tween has reached the end and is about to deregister itself.
+	 * @return {any} Return the value that should be assigned to the target property.
+	 * @static
+	 **/
+	s.change = function(tween, step, prop, value, ratio, end) {
+		// console.log(&quot;change&quot;, step, prop, value, ratio, end);
+		
+		// we want to manage the y property ourselves, so we can tell the tween to not update it:
+		// Note that this is redundant here, because we told the tween to completely ignore y in &#x60;init&#x60;.
+		if (prop === &quot;y&quot;) { return createjs.Tween.IGNORE; }
+		
+		// filter which properties you want to work on by using &quot;prop&quot;:
+		if (prop !== &quot;x&quot;) { return; }
+		
+		// set the y value on the target as a function of the x value:
+		// use the pluginData value we saved earlier to make it relative to the starting y:
+		tween.target.y = Math.sin(value/160*Math.PI)*50+tween.pluginData.Sample_y;
+		
+		
+		// NOTE: none of the code below actually does anything in this scenario, it&#x27;s just to illustrate concepts:
+		
+		// you can grab the end value for the step via its props object:
+		var endValue = step.props[prop];
+		
+		// similarly, you can grab the start value from previous step:
+		var startValue = step.prev.props[prop];
+		
+		// you could calculate the unmodified tweened value using the ratio:
+		// this will be the same as &quot;value&quot; unless a previous plugin returned a modified value
+		var unmodifiedValue = startValue + (endValue - startValue) * ratio;
+		if (value !== unmodifiedValue) { /* a previous plugin modified the value */ }
+		
+		// check if the tween is currently in a &quot;wait&quot; by comparing the props objects of this and the previous step:
+		var inWait = (step.props === step.prev.props);
+		
+		
+		// you can return a modified value to be set on the target:
+		// return Math.round(value);
+		
+		// or don&#x27;t return anything to use the default value.
+	};
+
+
+	createjs.SamplePlugin = s;
+
+}());
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

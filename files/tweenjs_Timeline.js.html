@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/css/yui-cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <script src="../assets/js/yui-source.js"></script>
+	<title>TweenJS v1.0.0 API Documentation : tweenjs/Timeline.js</title>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://www.createjs.com/tweenjs"><img src="../assets/docs-icon-TweenJS.png" title="TweenJS"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 1.0.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AbstractTween.html">AbstractTween</a></li>
+            
+                <li><a href="../classes/ColorPlugin.html">ColorPlugin</a></li>
+            
+                <li><a href="../classes/CSSPlugin.html">CSSPlugin</a></li>
+            
+                <li><a href="../classes/Ease.html">Ease</a></li>
+            
+                <li><a href="../classes/Event.html">Event</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/MotionGuidePlugin.html">MotionGuidePlugin</a></li>
+            
+                <li><a href="../classes/RelativePlugin.html">RelativePlugin</a></li>
+            
+                <li><a href="../classes/RotationPlugin.html">RotationPlugin</a></li>
+            
+                <li><a href="../classes/SamplePlugin.html">SamplePlugin</a></li>
+            
+                <li><a href="../classes/Ticker.html">Ticker</a></li>
+            
+                <li><a href="../classes/Timeline.html">Timeline</a></li>
+            
+                <li><a href="../classes/Tween.html">Tween</a></li>
+            
+                <li><a href="../classes/TweenJS.html">TweenJS</a></li>
+            
+                <li><a href="../classes/Utility Methods.html">Utility Methods</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/CreateJS.html">CreateJS</a></li>
+            
+                <li><a href="../modules/EaselJS.html">EaselJS</a></li>
+            
+                <li><a href="../modules/TweenJS.html">TweenJS</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content source-content">
+                        <script>
+	var name = tweenjs/Timeline.js      
+</script>
+<h1 class="file-heading">File:Timeline.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+* Timeline
+* Visit http://createjs.com/ for documentation, updates and examples.
+*
+* Copyright (c) 2010 gskinner.com, inc.
+*
+* Permission is hereby granted, free of charge, to any person
+* obtaining a copy of this software and associated documentation
+* files (the &quot;Software&quot;), to deal in the Software without
+* restriction, including without limitation the rights to use,
+* copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following
+* conditions:
+*
+* The above copyright notice and this permission notice shall be
+* included in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+* OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/**
+ * @module TweenJS
+ */
+
+// namespace:
+this.createjs = this.createjs||{};
+
+
+(function() {
+	&quot;use strict&quot;;
+	
+
+// constructor	
+	/**
+	 * The Timeline class synchronizes multiple tweens and allows them to be controlled as a group. Please note that if a
+	 * timeline is looping, the tweens on it may appear to loop even if the &quot;loop&quot; property of the tween is false.
+	 * 
+	 * NOTE: Timeline currently also accepts a param list in the form: &#x60;tweens, labels, props&#x60;. This is for backwards
+	 * compatibility only and will be removed in the future. Include tweens and labels as properties on the props object.
+	 * @class Timeline
+	 * @param {Object} [props] The configuration properties to apply to this instance (ex. &#x60;{loop:-1, paused:true}&#x60;).
+	 * Supported props are listed below. These props are set on the corresponding instance properties except where
+	 * specified.&lt;UL&gt;
+	 *    &lt;LI&gt; &#x60;useTicks&#x60;&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;ignoreGlobalPause&#x60;&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;loop&#x60;&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;reversed&#x60;&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;bounce&#x60;&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;timeScale&#x60;&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;paused&#x60;&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;position&#x60;: indicates the initial position for this tween.&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;onChange&#x60;: adds the specified function as a listener to the &#x60;change&#x60; event&lt;/LI&gt;
+	 *    &lt;LI&gt; &#x60;onComplete&#x60;: adds the specified function as a listener to the &#x60;complete&#x60; event&lt;/LI&gt;
+	 * &lt;/UL&gt;
+	 * @extends AbstractTween
+	 * @constructor
+	 **/
+	function Timeline(props) {
+		var tweens, labels;
+		// handle old params (tweens, labels, props):
+		// TODO: deprecated.
+		if (props instanceof Array || (props == null &amp;&amp; arguments.length &gt; 1)) {
+			tweens = props;
+			labels = arguments[1];
+			props = arguments[2];
+		} else if (props) {
+			tweens = props.tweens;
+			labels = props.labels;
+		}
+		
+		this.AbstractTween_constructor(props);
+
+	// private properties:
+		/**
+		 * The array of tweens in the timeline. It is *strongly* recommended that you use
+		 * {{#crossLink &quot;Tween/addTween&quot;}}{{/crossLink}} and {{#crossLink &quot;Tween/removeTween&quot;}}{{/crossLink}},
+		 * rather than accessing this directly, but it is included for advanced uses.
+		 * @property tweens
+		 * @type Array
+		 **/
+		this.tweens = [];
+		
+		if (tweens) { this.addTween.apply(this, tweens); }
+		this.setLabels(labels);
+		
+		this._init(props);
+	};
+	
+	var p = createjs.extend(Timeline, createjs.AbstractTween);
+
+	
+// events:
+	// docced in AbstractTween.
+
+
+// public methods:
+	/**
+	 * Adds one or more tweens (or timelines) to this timeline. The tweens will be paused (to remove them from the
+	 * normal ticking system) and managed by this timeline. Adding a tween to multiple timelines will result in
+	 * unexpected behaviour.
+	 * @method addTween
+	 * @param {Tween} ...tween The tween(s) to add. Accepts multiple arguments.
+	 * @return {Tween} The first tween that was passed in.
+	 **/
+	p.addTween = function(tween) {
+		if (tween._parent) { tween._parent.removeTween(tween); }
+		
+		var l = arguments.length;
+		if (l &gt; 1) {
+			for (var i=0; i&lt;l; i++) { this.addTween(arguments[i]); }
+			return arguments[l-1];
+		} else if (l === 0) { return null; }
+		
+		this.tweens.push(tween);
+		tween._parent = this;
+		tween.paused = true;
+		var d = tween.duration;
+		if (tween.loop &gt; 0) { d *= tween.loop+1; }
+		if (d &gt; this.duration) { this.duration = d; }
+		
+		if (this.rawPosition &gt;= 0) { tween.setPosition(this.rawPosition); }
+		return tween;
+	};
+
+	/**
+	 * Removes one or more tweens from this timeline.
+	 * @method removeTween
+	 * @param {Tween} ...tween The tween(s) to remove. Accepts multiple arguments.
+	 * @return Boolean Returns &#x60;true&#x60; if all of the tweens were successfully removed.
+	 **/
+	p.removeTween = function(tween) {
+		var l = arguments.length;
+		if (l &gt; 1) {
+			var good = true;
+			for (var i=0; i&lt;l; i++) { good = good &amp;&amp; this.removeTween(arguments[i]); }
+			return good;
+		} else if (l === 0) { return true; }
+
+		var tweens = this.tweens;
+		var i = tweens.length;
+		while (i--) {
+			if (tweens[i] === tween) {
+				tweens.splice(i, 1);
+				tween._parent = null;
+				if (tween.duration &gt;= this.duration) { this.updateDuration(); }
+				return true;
+			}
+		}
+		return false;
+	};
+
+	/**
+	 * Recalculates the duration of the timeline. The duration is automatically updated when tweens are added or removed,
+	 * but this method is useful if you modify a tween after it was added to the timeline.
+	 * @method updateDuration
+	 **/
+	p.updateDuration = function() {
+		this.duration = 0;
+		for (var i=0,l=this.tweens.length; i&lt;l; i++) {
+			var tween = this.tweens[i];
+			var d = tween.duration;
+			if (tween.loop &gt; 0) { d *= tween.loop+1; }
+			if (d &gt; this.duration) { this.duration = d; }
+		}
+	};
+
+	/**
+	* Returns a string representation of this object.
+	* @method toString
+	* @return {String} a string representation of the instance.
+	**/
+	p.toString = function() {
+		return &quot;[Timeline]&quot;;
+	};
+
+	/**
+	 * @method clone
+	 * @protected
+	 **/
+	p.clone = function() {
+		throw(&quot;Timeline can not be cloned.&quot;)
+	};
+
+// private methods:
+	
+	// Docced in AbstractTween
+	p._updatePosition = function(jump, end) {
+		var t = this.position;
+		for (var i=0, l=this.tweens.length; i&lt;l; i++) {
+			this.tweens[i].setPosition(t, true, jump); // actions will run after all the tweens update.
+		}
+	};
+	
+	// Docced in AbstractTween
+	p._runActionsRange = function(startPos, endPos, jump, includeStart) {
+		//console.log(&quot;	range&quot;, startPos, endPos, jump, includeStart);
+		var t = this.position;
+		for (var i=0, l=this.tweens.length; i&lt;l; i++) {
+			this.tweens[i]._runActions(startPos, endPos, jump, includeStart);
+			if (t !== this.position) { return true; } // an action changed this timeline&#x27;s position.
+		}
+	};
+
+
+	createjs.Timeline = createjs.promote(Timeline, &quot;AbstractTween&quot;);
+
+}());
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

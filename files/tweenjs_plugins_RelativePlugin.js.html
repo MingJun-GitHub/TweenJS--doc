@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/css/yui-cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <script src="../assets/js/yui-source.js"></script>
+	<title>TweenJS v1.0.0 API Documentation : tweenjs/plugins/RelativePlugin.js</title>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://www.createjs.com/tweenjs"><img src="../assets/docs-icon-TweenJS.png" title="TweenJS"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 1.0.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/AbstractTween.html">AbstractTween</a></li>
+            
+                <li><a href="../classes/ColorPlugin.html">ColorPlugin</a></li>
+            
+                <li><a href="../classes/CSSPlugin.html">CSSPlugin</a></li>
+            
+                <li><a href="../classes/Ease.html">Ease</a></li>
+            
+                <li><a href="../classes/Event.html">Event</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/MotionGuidePlugin.html">MotionGuidePlugin</a></li>
+            
+                <li><a href="../classes/RelativePlugin.html">RelativePlugin</a></li>
+            
+                <li><a href="../classes/RotationPlugin.html">RotationPlugin</a></li>
+            
+                <li><a href="../classes/SamplePlugin.html">SamplePlugin</a></li>
+            
+                <li><a href="../classes/Ticker.html">Ticker</a></li>
+            
+                <li><a href="../classes/Timeline.html">Timeline</a></li>
+            
+                <li><a href="../classes/Tween.html">Tween</a></li>
+            
+                <li><a href="../classes/TweenJS.html">TweenJS</a></li>
+            
+                <li><a href="../classes/Utility Methods.html">Utility Methods</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/CreateJS.html">CreateJS</a></li>
+            
+                <li><a href="../modules/EaselJS.html">EaselJS</a></li>
+            
+                <li><a href="../modules/TweenJS.html">TweenJS</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content source-content">
+                        <script>
+	var name = tweenjs/plugins/RelativePlugin.js      
+</script>
+<h1 class="file-heading">File:RelativePlugin.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+* RelativePlugin
+* Visit http://createjs.com/ for documentation, updates and examples.
+*
+* Copyright (c) 2010 gskinner.com, inc.
+*
+* Permission is hereby granted, free of charge, to any person
+* obtaining a copy of this software and associated documentation
+* files (the &quot;Software&quot;), to deal in the Software without
+* restriction, including without limitation the rights to use,
+* copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following
+* conditions:
+*
+* The above copyright notice and this permission notice shall be
+* included in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+* OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/**
+* @module TweenJS
+*/
+
+this.createjs = this.createjs||{};
+
+(function() {
+	&quot;use strict&quot;;
+
+	/**
+	 * The RelativePlugin for TweenJS enables relative numeric values for tweens. Install using:
+	 * 
+	 * 	RotationPlugin.install();
+	 * 
+	 * Once installed, you can pass in relative numeric property values as strings beginning with &quot;+&quot; or &quot;-&quot;. For example,
+	 * the following tween would tween the x position of &#x60;foo&#x60; from its initial value of &#x60;200&#x60; to &#x60;50&#x60; (200-150), then to
+	 * &#x60;125&#x60; (50+75).
+	 * 
+	 * 	foo.x = 200;
+	 * 	Tween.get(foo).to({x:&quot;-150&quot;}, 500).to({x:&quot;+75&quot;}, 500);
+	 * 
+	 * @class RelativePlugin
+	 * @constructor
+	 **/
+	function RelativePlugin() {
+		throw(&quot;RelativePlugin plugin cannot be instantiated.&quot;)
+	}
+	var s = RelativePlugin;
+	
+	/**
+	 * READ-ONLY. A unique identifying string for this plugin. Used by TweenJS to ensure duplicate plugins are not installed on a tween.
+	 * @property ID
+	 * @type {String}
+	 * @static
+	 * @readonly
+	 **/
+	s.ID = &quot;Relative&quot;;
+
+	/**
+	 * Installs this plugin for use with TweenJS. Call this once after TweenJS is loaded to enable this plugin.
+	 * @method install
+	 * @static
+	 **/
+	s.install = function() {
+		createjs.Tween._installPlugin(RelativePlugin);
+	};
+	
+	/**
+	 * Called by TweenJS when a new property initializes on a tween.
+	 * See {{#crossLink &quot;SamplePlugin/init&quot;}}{{/crossLink}} for more info.
+	 * @method init
+	 * @param {Tween} tween
+	 * @param {String} prop
+	 * @param {any} value
+	 * @return {any}
+	 * @static
+	 **/
+	s.init = function(tween, prop, value) {
+		if (!tween.pluginData.Relative_disabled) { tween._addPlugin(s); }
+	};
+	
+	/**
+	 * Called when a new step is added to a tween (ie. a new &quot;to&quot; action is added to a tween).
+	 * See {{#crossLink &quot;SamplePlugin/step&quot;}}{{/crossLink}} for more info.
+	 * @method step
+	 * @param {Tween} tween
+	 * @param {TweenStep} step
+	 * @param {Object} props
+	 * @static
+	 **/
+	s.step = function(tween, step, props) {
+		// in this method we check if any prop is a string value starting with &quot;+&quot; or &quot;-&quot;, and adjust the value accordingly.
+		for (var n in props) {
+			var value = props[n];
+			if (typeof value !== &quot;string&quot;) { continue; }
+			var prev = step.prev.props[n], char0 = value[0];
+			if (!(char0 === &quot;+&quot; || char0 === &quot;-&quot;) || isNaN(value = +value+prev)) { continue; }
+			step.props[n] = value;
+		}
+	};
+
+	/**
+	 * Called before a property is updated by the tween.
+	 * See {{#crossLink &quot;SamplePlugin/change&quot;}}{{/crossLink}} for more info.
+	 * @method change
+	 * @param {Tween} tween
+	 * @param {TweenStep} step
+	 * @param {String} prop
+	 * @param {any} value
+	 * @param {Number} ratio
+	 * @param {Boolean} end
+	 * @return {any}
+	 * @static
+	 **/
+	s.change = function(tween, step, prop, value, ratio, end) {
+		// nothing
+	};
+
+	createjs.RelativePlugin = s;
+}());
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
